@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:5000', {
+const socket = io('https://skillhive-74fi.onrender.com', {
   autoConnect: true,
   transports: ['websocket', 'polling'],
 });

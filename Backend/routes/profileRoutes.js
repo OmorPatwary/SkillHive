@@ -17,11 +17,12 @@ router.get('/profile/:userId', async (req, res) => {
 // প্রোফাইল আপডেট করা
 router.put('/profile/:userId', async (req, res) => {
   try {
-    const { name, bio, skillsToOffer, skillsToLearn, isPaidMentor } = req.body;
+    // 💡 profilePic কে req.body থেকে ধরা হয়েছে
+    const { name, bio, profilePic, skillsToOffer, skillsToLearn, isPaidMentor } = req.body;
 
     const updatedUser = await User.findByIdAndUpdate(
       req.params.userId,
-      { name, bio, skillsToOffer, skillsToLearn, isPaidMentor },
+      { name, bio, profilePic, skillsToOffer, skillsToLearn, isPaidMentor }, // 👈 profilePic আপডেট করা হলো
       { new: true }
     ).select('-password');
 

@@ -1,68 +1,59 @@
-:root {
-  --primary-color: #2563eb;
-  --primary-hover: #1d4ed8;
-  --secondary-color: #0284c7;
-  --bg-main: #f8fafc;
-  --bg-card: #ffffff;
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --border-color: #e2e8f0;
-  --success-color: #10b981;
-  --success-bg: #ecfdf5;
-  --warning-color: #f59e0b;
-  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
-  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.05);
-}
-
 body {
-  background-color: var(--bg-main) !important;
-  color: var(--text-main);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom Reusable Classes */
-.skill-card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.2s ease-in-out;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 
-.skill-card:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-  border-color: #cbd5e1;
+/* Google Fonts Utility Classes */
+
+.font-montserrat {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
-.btn-primary-custom {
-  background-color: var(--primary-color);
-  color: #ffffff;
-  border: none;
-  font-weight: 500;
-  border-radius: 50px;
-  padding: 8px 20px;
+.font-prata {
+  font-family: "Prata", serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
-.btn-primary-custom:hover {
-  background-color: var(--primary-hover);
-  color: #ffffff;
+.font-skranji {
+  font-family: "Skranji", system-ui;
+  font-weight: 400;
+  font-style: normal;
 }
 
-.badge-skill {
-  background-color: #eff6ff;
-  color: var(--primary-color);
-  border: 1px solid #bfdbfe;
-  font-weight: 500;
-  padding: 5px 12px;
-  border-radius: 20px;
+.font-milonga {
+  font-family: "Milonga", serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
-.badge-match {
-  background-color: var(--success-bg);
-  color: var(--success-color);
-  border: 1px solid #a7f3d0;
-  font-weight: 600;
-  padding: 5px 12px;
-  border-radius: 20px;
+.font-calistoga {
+  font-family: "Calistoga", serif;
+  font-weight: 400;
+  font-style: normal;
 }
+
+/* 📱 Typography Responsiveness for Mobile */
+@media (max-width: 768px) {
+  h1, .fs-1 {
+    font-size: 1.8rem !important;
+  }
+  h2, .fs-2 {
+    font-size: 1.5rem !important;
+  }
+  h3, .fs-3 {
+    font-size: 1.3rem !important;
+  }
+}
+

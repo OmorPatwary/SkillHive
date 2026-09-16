@@ -34,21 +34,27 @@ const Register = ({ setUser }) => {
   };
 
   return (
-    <div className="container py-5">
+    <div className="container py-4 py-md-5 font-montserrat">
       <div className="row justify-content-center">
-        <div className="col-md-5">
-          <div className="card border-0 shadow-sm rounded-3 p-4">
-            <h3 className="fw-bold mb-1 text-center text-dark">Create Account</h3>
-            <p className="text-secondary text-center small mb-4">Join SkillSwap and start learning today</p>
+        <div className="col-12 col-sm-10 col-md-6 col-lg-5">
+          <div className="card border-0 shadow-sm rounded-4 p-3 p-sm-4 bg-white">
+            <h3 className="fw-bold mb-1 text-center text-dark fs-4 fs-md-3">Create Account</h3>
+            <p className="text-secondary text-center small mb-4 opacity-75">
+              Join SkillSwap and start learning today
+            </p>
 
-            {error && <div className="alert alert-danger py-2 small mb-3">{error}</div>}
+            {error && (
+              <div className="alert alert-danger py-2 px-3 small mb-3 rounded-3" style={{ fontSize: '0.85rem' }}>
+                {error}
+              </div>
+            )}
 
             <form onSubmit={handleRegister}>
               <div className="mb-3">
-                <label className="form-label fw-semibold">Full Name</label>
+                <label className="form-label fw-semibold small text-secondary">Full Name</label>
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control form-control-md rounded-3"
                   placeholder="Rahul Ahmed"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -57,10 +63,10 @@ const Register = ({ setUser }) => {
               </div>
 
               <div className="mb-3">
-                <label className="form-label fw-semibold">Email Address</label>
+                <label className="form-label fw-semibold small text-secondary">Email Address</label>
                 <input
                   type="email"
-                  className="form-control"
+                  className="form-control form-control-md rounded-3"
                   placeholder="name@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -69,10 +75,10 @@ const Register = ({ setUser }) => {
               </div>
 
               <div className="mb-4">
-                <label className="form-label fw-semibold">Password</label>
+                <label className="form-label fw-semibold small text-secondary">Password</label>
                 <input
                   type="password"
-                  className="form-control"
+                  className="form-control form-control-md rounded-3"
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -84,13 +90,17 @@ const Register = ({ setUser }) => {
                 type="submit"
                 disabled={loading}
                 className="btn btn-primary w-100 fw-semibold rounded-pill py-2"
+                style={{ backgroundColor: '#2563eb', borderColor: '#2563eb' }}
               >
                 {loading ? 'Creating Account...' : 'Sign Up'}
               </button>
             </form>
 
-            <p className="text-center small text-muted mt-4 mb-0">
-              Already have an account? <Link to="/login" className="text-primary fw-semibold text-decoration-none">Log In</Link>
+            <p className="text-center small text-muted mt-4 mb-0" style={{ fontSize: '0.85rem' }}>
+              Already have an account?{' '}
+              <Link to="/login" className="text-primary fw-semibold text-decoration-none">
+                Log In
+              </Link>
             </p>
           </div>
         </div>

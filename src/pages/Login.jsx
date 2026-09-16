@@ -1,70 +1,133 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from '../api/apiServices';
+import { AuthContext } from '../context/AuthContext';
 
-const Login = ({ setUser }) => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
+
+  const { updateUser } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
     setError('');
     setLoading(true);
 
     try {
-      // ব্যাকএন্ড API কল
-      const res = await loginUser({ email, password });
+      const cleanEmail = email.toLowerCase().trim();
 
-      // ব্যাকএন্ড থেকে পাওয়া টোকেন ও ইউজার ডাটা localStorage-এ সেভ করা
-      localStorage.setItem('token', res.data.token);
-      localStorage.setItem('user', JSON.stringify(res.data.user));
+      const res = await loginUser({
+        email: cleanEmail,
+        password,
+      });
 
-      // অ্যাপের স্টেট আপডেট করা
-      setUser(res.data.user);
+      const loggedInUser = res.data?.user;
+      const token = res.data?.token;
+
+      if (!token || !loggedInUser) {
+        throw new Error('Invalid login response from server');
+      }
+
+      const userId =
+        loggedInUser._id ||
+        loggedInUser.id ||
+        loggedInUser.userId;
+
+      if (!userId) {
+        throw new Error('User ID not found in login response');
+      }
+
+      const normalizedUser = {
+        ...loggedInUser,
+        _id: String(userId),
+        id: String(userId),
+      };
+
+      localStorage.setItem('token', token);
+      localStorage.setItem(
+        'user',
+        JSON.stringify(normalizedUser)
+      );
+
+      if (updateUser) {
+        updateUser(normalizedUser);
+      }
+
       alert('Login Successful!');
+
       navigate('/matches');
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed. Invalid credentials.');
+      console.error('Login error:', err);
+
+      setError(
+        err.response?.data?.message ||
+          err.message ||
+          'Login failed. Invalid credentials.'
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="container py-5">
+    <div className="container py-4 py-md-5 font-montserrat">
       <div className="row justify-content-center">
-        <div className="col-md-5">
-          <div className="card border-0 shadow-sm rounded-3 p-4">
-            <h3 className="fw-bold mb-1 text-center text-dark">Welcome Back</h3>
-            <p className="text-secondary text-center small mb-4">Log in to exchange skills with others</p>
+        <div className="col-12 col-sm-10 col-md-6 col-lg-5">
+          <div className="card border-0 shadow-sm rounded-4 p-3 p-sm-4 bg-white">
+            <h3 className="fw-bold mb-1 text-center text-dark fs-4 fs-md-3">
+              Welcome Back
+            </h3>
 
-            {/* কোনো এরর থাকলে অ্যালার্ট দেখাবে */}
-            {error && <div className="alert alert-danger py-2 small mb-3">{error}</div>}
+            <p className="text-secondary text-center small mb-4 opacity-75">
+              Log in to exchange skills with others
+            </p>
+
+            {error && (
+              <div
+                className="alert alert-danger py-2 px-3 small mb-3 rounded-3"
+                style={{ fontSize: '0.85rem' }}
+              >
+                {error}
+              </div>
+            )}
 
             <form onSubmit={handleLogin}>
               <div className="mb-3">
-                <label className="form-label fw-semibold">Email Address</label>
+                <label className="form-label fw-semibold small text-secondary">
+                  Email Address
+                </label>
+
                 <input
                   type="email"
-                  className="form-control"
-                  placeholder="name@example.com"
+                  className="form-control form-control-md rounded-3"
+                  placeholder="Enter your Email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) =>
+                    setEmail(e.target.value)
+                  }
                   required
                 />
               </div>
 
               <div className="mb-4">
-                <label className="form-label fw-semibold">Password</label>
+                <label className="form-label fw-semibold small text-secondary">
+                  Password
+                </label>
+
                 <input
                   type="password"
-                  className="form-control"
-                  placeholder="••••••••"
+                  className="form-control form-control-md rounded-3"
+                  placeholder="Enter your Password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) =>
+                    setPassword(e.target.value)
+                  }
                   required
                 />
               </div>
@@ -73,13 +136,28 @@ const Login = ({ setUser }) => {
                 type="submit"
                 disabled={loading}
                 className="btn btn-primary w-100 fw-semibold rounded-pill py-2"
+                style={{
+                  backgroundColor: '#2563eb',
+                  borderColor: '#2563eb',
+                }}
               >
-                {loading ? 'Logging in...' : 'Log In'}
+                {loading
+                  ? 'Logging in...'
+                  : 'Log In'}
               </button>
             </form>
 
-            <p className="text-center small text-muted mt-4 mb-0">
-              Don't have an account? <Link to="/register" className="text-primary fw-semibold text-decoration-none">Sign Up</Link>
+            <p
+              className="text-center small text-muted mt-4 mb-0"
+              style={{ fontSize: '0.85rem' }}
+            >
+              Don't have an account?{' '}
+              <Link
+                to="/register"
+                className="text-primary fw-semibold text-decoration-none"
+              >
+                Sign Up
+              </Link>
             </p>
           </div>
         </div>

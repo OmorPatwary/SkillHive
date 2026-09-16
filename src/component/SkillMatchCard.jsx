@@ -75,7 +75,7 @@ const SkillMatchCard = ({ match, currentUser, isRequested = false }) => {
     setLoading(true);
 
     try {
-      const res = await axios.post('http://localhost:5000/api/notifications/swap-request', {
+      const res = await axios.post('http://skillhive-74fi.onrender.com/api/notifications/swap-request', {
         senderId: senderId,
         recipientId: recipientId,
         senderName: currentUser?.name || 'A User'

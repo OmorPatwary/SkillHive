@@ -19,18 +19,18 @@ const Navbar = () => {
     if (userId) {
       socket.emit('register_user', userId);
 
-      const fetchNotifications = async () => {
-        try {
-          const res = await axios.get(
-            `http://localhost:5000/api/notifications/${userId}`
-          );
+     const fetchNotifications = async () => {
+      try {
+        const res = await axios.get(
+          `https://skillhive-74fi.onrender.com/api/notifications/${userId}`
+        );
 
-          const unreadCount = res.data.filter((n) => !n.isRead).length;
-          setUnreadNotifications(unreadCount);
-        } catch (err) {
-          console.error('Error fetching unread notifications:', err);
-        }
-      };
+        const unreadCount = res.data.filter((n) => !n.isRead).length;
+        setUnreadNotifications(unreadCount);
+      } catch (err) {
+        console.error('Error fetching unread notifications:', err);
+      }
+    };
 
       fetchNotifications();
 
@@ -67,7 +67,7 @@ const Navbar = () => {
       return pic;
     }
 
-    return `http://localhost:5000/${pic.replace(/^\//, '')}`;
+    return `http://skillhive-74fi.onrender.com/${pic.replace(/^\//, '')}`;
   };
 
   const navLinkStyle = ({ isActive }) =>

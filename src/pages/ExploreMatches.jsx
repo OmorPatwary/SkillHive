@@ -13,7 +13,7 @@ const ExploreMatches = ({ user, currentUserId }) => {
   useEffect(() => {
     const fetchMatches = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/matches');
+        const res = await axios.get('http://skillhive-74fi.onrender.com/api/matches');
         setMatchesData(res.data.matches || res.data || []);
       } catch (err) {
         console.error('Error loading matches page:', err);

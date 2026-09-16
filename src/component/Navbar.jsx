@@ -67,7 +67,7 @@ const Navbar = () => {
       return pic;
     }
 
-    return `http://skillhive-74fi.onrender.com/${pic.replace(/^\//, '')}`;
+    return `https://skillhive-74fi.onrender.com/${pic.replace(/^\//, '')}`;
   };
 
   const navLinkStyle = ({ isActive }) =>

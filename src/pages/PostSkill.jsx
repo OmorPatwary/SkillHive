@@ -36,7 +36,7 @@ const PostSkill = ({ user: propsUser }) => {
         description: formData.description,
       };
 
-      await axios.post('http://skillhive-74fi.onrender.com/api/matches', payload);
+      await axios.post('https://skillhive-74fi.onrender.com/api/matches', payload);
 
       // সোকেট ইভেন্ট ইমিট করা
       socket.emit('new_post_created', {

@@ -22,7 +22,7 @@ const Home = ({ user }) => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const res = await axios.get('http://skillhive-74fi.onrender.com/api/jobs');
+        const res = await axios.get('https://skillhive-74fi.onrender.com/api/jobs');
         setJobs(res.data.jobs || res.data || []);
       } catch (err) {
         console.error('Error fetching jobs:', err);
@@ -33,7 +33,7 @@ const Home = ({ user }) => {
 
     const fetchMatches = async () => {
       try {
-        const res = await axios.get('http://skillhive-74fi.onrender.com/api/matches');
+        const res = await axios.get('https://skillhive-74fi.onrender.com/api/matches');
         setMatches(res.data.matches || res.data || []);
       } catch (err) {
         console.error('Error fetching matches:', err);

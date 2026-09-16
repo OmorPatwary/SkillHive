@@ -16,7 +16,7 @@ const Notifications = ({ user, refreshUnreadCount }) => {
 
   const fetchNotifications = async () => {
     try {
-      const res = await axios.get(`http://skillhive-74fi.onrender.com/api/notifications/${userId}`);
+      const res = await axios.get(`https://skillhive-74fi.onrender.com/api/notifications/${userId}`);
       setNotifications(res.data);
     } catch (err) {
       console.error('Error fetching notifications:', err);
@@ -28,7 +28,7 @@ const Notifications = ({ user, refreshUnreadCount }) => {
   const handleNotificationClick = async (notif) => {
     if (!notif.isRead) {
       try {
-        await axios.put(`http://skillhive-74fi.onrender.com/api/notifications/read/${notif._id}`);
+        await axios.put(`https://skillhive-74fi.onrender.com/api/notifications/read/${notif._id}`);
         setNotifications((prev) =>
           prev.map((n) => (n._id === notif._id ? { ...n, isRead: true } : n))
         );
@@ -58,7 +58,7 @@ const Notifications = ({ user, refreshUnreadCount }) => {
   const handleRespond = async (e, notifId, action, senderId) => {
     e.stopPropagation();
     try {
-      const res = await axios.put(`http://skillhive-74fi.onrender.com/api/notifications/respond/${notifId}`, {
+      const res = await axios.put(`https://skillhive-74fi.onrender.com/api/notifications/respond/${notifId}`, {
         status: action
       });
 
@@ -81,7 +81,7 @@ const Notifications = ({ user, refreshUnreadCount }) => {
 
   const markAllAsRead = async () => {
     try {
-      await axios.put(`http://skillhive-74fi.onrender.com/api/notifications/read-all/${userId}`);
+      await axios.put(`https://skillhive-74fi.onrender.com/api/notifications/read-all/${userId}`);
       setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
       if (refreshUnreadCount) refreshUnreadCount();
     } catch (err) {
@@ -92,7 +92,7 @@ const Notifications = ({ user, refreshUnreadCount }) => {
   const getProfilePicUrl = (pic) => {
     if (!pic) return '';
     if (pic.startsWith('http') || pic.startsWith('data:')) return pic;
-    return `http://skillhive-74fi.onrender.com/${pic.replace(/^\//, '')}`;
+    return `https://skillhive-74fi.onrender.com/${pic.replace(/^\//, '')}`;
   };
 
   if (loading) {

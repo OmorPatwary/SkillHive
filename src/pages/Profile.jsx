@@ -86,27 +86,58 @@ const Profile = () => {
     }
   };
 
-  // স্কিল হ্যান্ডলারসমূহ
+  // স্কিল যোগ করার আপডেটেড হ্যান্ডলার (কমা আলাদা করার সুবিধা সহ)
   const handleAddOfferSkill = () => {
-    if (offerInput.trim() && !skillsToOffer.includes(offerInput.trim())) {
-      setSkillsToOffer([...skillsToOffer, offerInput.trim()]);
-      setOfferInput('');
+    if (!offerInput.trim()) return;
+
+    // কমা দিয়ে আলাদা করে ফালতু স্পেস ও ডুপ্লিকেট রিমুভ করা
+    const newSkills = offerInput
+      .split(',')
+      .map((s) => s.trim())
+      .filter((s) => s !== '' && !skillsToOffer.includes(s));
+
+    if (newSkills.length > 0) {
+      setSkillsToOffer([...skillsToOffer, ...newSkills]);
     }
+    setOfferInput('');
   };
 
-  const handleRemoveOfferSkill = (skill) => {
-    setSkillsToOffer(skillsToOffer.filter((s) => s !== skill));
+  const handleRemoveOfferSkill = (skillToRemove) => {
+    setSkillsToOffer(skillsToOffer.filter((s) => s !== skillToRemove));
   };
 
   const handleAddLearnSkill = () => {
-    if (learnInput.trim() && !skillsToLearn.includes(learnInput.trim())) {
-      setSkillsToLearn([...skillsToLearn, learnInput.trim()]);
-      setLearnInput('');
+    if (!learnInput.trim()) return;
+
+    // কমা দিয়ে আলাদা করে ফালতু স্পেস ও ডুপ্লিকেট রিমুভ করা
+    const newSkills = learnInput
+      .split(',')
+      .map((s) => s.trim())
+      .filter((s) => s !== '' && !skillsToLearn.includes(s));
+
+    if (newSkills.length > 0) {
+      setSkillsToLearn([...skillsToLearn, ...newSkills]);
+    }
+    setLearnInput('');
+  };
+
+  const handleRemoveLearnSkill = (skillToRemove) => {
+    setSkillsToLearn(skillsToLearn.filter((s) => s !== skillToRemove));
+  };
+
+  // ইনপুট বক্সে Enter চাপলে স্কিল যুক্ত হবে
+  const handleKeyDownOffer = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleAddOfferSkill();
     }
   };
 
-  const handleRemoveLearnSkill = (skill) => {
-    setSkillsToLearn(skillsToLearn.filter((s) => s !== skill));
+  const handleKeyDownLearn = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleAddLearnSkill();
+    }
   };
 
   // প্রোফাইল সেভ/আপডেট করা
@@ -255,6 +286,7 @@ const Profile = () => {
                     placeholder="e.g. React.js, Tailwind CSS"
                     value={offerInput}
                     onChange={(e) => setOfferInput(e.target.value)}
+                    onKeyDown={handleKeyDownOffer}
                   />
                   <button
                     type="button"
@@ -295,6 +327,7 @@ const Profile = () => {
                     placeholder="e.g. C++, Figma"
                     value={learnInput}
                     onChange={(e) => setLearnInput(e.target.value)}
+                    onKeyDown={handleKeyDownLearn}
                   />
                   <button
                     type="button"

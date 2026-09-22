@@ -278,44 +278,54 @@ const Profile = () => {
 
               {/* যেসব স্কিল শেখাতে পারবেন */}
               <div className="mb-4">
-                <label className="form-label fw-semibold small text-primary">Skills I Can Teach (Offer)</label>
-                <div className="input-group mb-2">
-                  <input
-                    type="text"
-                    className="form-control form-control-md rounded-start-3"
-                    placeholder="e.g. React.js, Tailwind CSS"
-                    value={offerInput}
-                    onChange={(e) => setOfferInput(e.target.value)}
-                    onKeyDown={handleKeyDownOffer}
-                  />
-                  <button
-                    type="button"
-                    onClick={handleAddOfferSkill}
-                    className="btn btn-primary fw-semibold px-3"
-                    style={{ backgroundColor: '#2563eb', borderColor: '#2563eb', fontSize: '0.85rem' }}
-                  >
-                    Add Skill
-                  </button>
-                </div>
-                <div className="d-flex flex-wrap gap-2 mt-2">
-                  {skillsToOffer.map((skill, index) => (
-                    <span
-                      key={index}
-                      className="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 rounded-pill d-flex align-items-center gap-2"
-                      style={{ fontSize: '0.8rem' }}
-                    >
-                      {skill}
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveOfferSkill(skill)}
-                        className="btn-close btn-close-sm"
-                        style={{ fontSize: '0.65rem' }}
-                        aria-label="Remove"
-                      ></button>
-                    </span>
-                  ))}
-                </div>
-              </div>
+  <label className="form-label fw-semibold small text-primary">Skills I Can Teach (Offer)</label>
+  <div className="input-group mb-2">
+    <input
+      type="text"
+      className="form-control form-control-md rounded-start-3"
+      placeholder="e.g. React.js, Tailwind CSS"
+      value={offerInput}
+      onChange={(e) => setOfferInput(e.target.value)}
+      onKeyDown={handleKeyDownOffer}
+    />
+    <button
+      type="button"
+      onClick={handleAddOfferSkill}
+      className="btn btn-primary fw-semibold px-3"
+      style={{ backgroundColor: '#2563eb', borderColor: '#2563eb', fontSize: '0.85rem' }}
+    >
+      Add Skill
+    </button>
+  </div>
+
+  <div className="d-flex flex-wrap gap-2 mt-2">
+    {skillsToOffer.map((skill, index) => (
+      <span
+        key={index}
+        className="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 rounded-pill d-flex align-items-center gap-2"
+        style={{ fontSize: '0.8rem' }}
+      >
+        {skill}
+        <button
+          type="button"
+          onClick={() => handleRemoveOfferSkill(skill)}
+          className="btn-close btn-close-sm"
+          style={{ fontSize: '0.65rem' }}
+          aria-label="Remove"
+        ></button>
+      </span>
+    ))}
+  </div>
+
+  {/* সব স্কিল এক ক্লিকে মোছার জন্য সাময়িক বাটন */}
+  <button
+    type="button"
+    onClick={() => setSkillsToOffer([])}
+    className="btn btn-sm btn-outline-danger mt-2"
+  >
+    Clear All Offer Skills
+  </button>
+</div>
 
               {/* যেসব স্কিল শিখতে চান */}
               <div className="mb-4">

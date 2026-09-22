@@ -19,18 +19,18 @@ const Navbar = () => {
     if (userId) {
       socket.emit('register_user', userId);
 
-     const fetchNotifications = async () => {
-      try {
-        const res = await axios.get(
-          `https://skillhive-74fi.onrender.com/api/notifications/${userId}`
-        );
+      const fetchNotifications = async () => {
+        try {
+          const res = await axios.get(
+            `https://skillhive-74fi.onrender.com/api/notifications/${userId}`
+          );
 
-        const unreadCount = res.data.filter((n) => !n.isRead).length;
-        setUnreadNotifications(unreadCount);
-      } catch (err) {
-        console.error('Error fetching unread notifications:', err);
-      }
-    };
+          const unreadCount = res.data.filter((n) => !n.isRead).length;
+          setUnreadNotifications(unreadCount);
+        } catch (err) {
+          console.error('Error fetching unread notifications:', err);
+        }
+      };
 
       fetchNotifications();
 
@@ -71,7 +71,7 @@ const Navbar = () => {
   };
 
   const navLinkStyle = ({ isActive }) =>
-    `small fw-semibold font-montserrat transition-all d-inline-flex align-items-center gap-1 text-decoration-none py-2 py-lg-0 ${
+    `small fw-semibold font-montserrat transition-all d-inline-flex align-items-center gap-1 text-decoration-none text-nowrap py-1 ${
       isActive ? 'text-primary fw-bold' : 'text-secondary'
     }`;
 
@@ -88,12 +88,12 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className="navbar navbar-light bg-white shadow-sm sticky-top"
+        className="navbar navbar-light bg-white shadow-sm sticky-top p-0"
         style={{ borderBottom: '1px solid #e2e8f0', zIndex: 1100 }}
       >
-        <div className="container py-1">
+        <div className="container-fluid px-3 px-lg-4 py-2 d-flex align-items-center justify-content-between flex-nowrap">
           <Link
-            className="navbar-brand fw-bold fs-4 d-flex align-items-center font-montserrat text-decoration-none"
+            className="navbar-brand fw-bold fs-4 d-flex align-items-center font-montserrat text-decoration-none text-nowrap me-3"
             to="/"
             onClick={closeMenu}
           >
@@ -102,7 +102,7 @@ const Navbar = () => {
           </Link>
 
           <button
-            className="navbar-toggler border-0 shadow-none d-lg-none"
+            className="navbar-toggler border-0 shadow-none d-lg-none ms-auto"
             type="button"
             onClick={() => setIsOpen(true)}
             aria-label="Open navigation"
@@ -110,8 +110,8 @@ const Navbar = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="skillhive-desktop-menu d-none d-lg-flex ms-auto">
-            <div className="d-flex align-items-center gap-3">
+          <div className="skillhive-desktop-menu d-none d-lg-flex ms-auto align-items-center">
+            <div className="d-flex align-items-center gap-2 gap-xl-3 flex-nowrap">
               <NavLink
                 to="/about"
                 className={navLinkStyle}
@@ -140,7 +140,7 @@ const Navbar = () => {
 
                   <NavLink
                     to="/post-job"
-                    className="btn btn-outline-primary btn-sm rounded-pill fw-semibold font-montserrat d-inline-flex align-items-center justify-content-center gap-1"
+                    className="btn btn-outline-primary btn-sm rounded-pill fw-semibold font-montserrat d-inline-flex align-items-center justify-content-center gap-1 text-nowrap"
                   >
                     <i className="fa-solid fa-circle-plus"></i>
                     Post Work
@@ -166,7 +166,7 @@ const Navbar = () => {
                     to="/notifications"
                     className={navLinkStyle}
                   >
-                    <div className="position-relative d-inline-flex align-items-center gap-1">
+                    <div className="position-relative d-inline-flex align-items-center gap-1 text-nowrap">
                       <i className="fa-solid fa-bell"></i>
                       <span>Notifications</span>
 
@@ -186,24 +186,24 @@ const Navbar = () => {
                     Profile
                   </NavLink>
 
-                  <div className="d-flex align-items-center gap-2">
+                  <div className="d-flex align-items-center gap-2 text-nowrap">
                     {user?.profilePic ? (
                       <img
                         src={getProfilePicUrl(user.profilePic)}
                         alt={user.name || 'User'}
-                        className="rounded-circle border border-primary"
+                        className="rounded-circle border border-primary flex-shrink-0"
                         style={{
-                          width: '38px',
-                          height: '38px',
+                          width: '36px',
+                          height: '36px',
                           objectFit: 'cover',
                         }}
                       />
                     ) : (
                       <div
-                        className="rounded-circle bg-light border d-flex align-items-center justify-content-center"
+                        className="rounded-circle bg-light border d-flex align-items-center justify-content-center flex-shrink-0"
                         style={{
-                          width: '38px',
-                          height: '38px',
+                          width: '36px',
+                          height: '36px',
                         }}
                       >
                         <i
@@ -214,7 +214,7 @@ const Navbar = () => {
                     )}
 
                     <span
-                      className="badge px-3 py-2 rounded-pill fw-medium font-montserrat d-inline-flex align-items-center justify-content-center gap-1"
+                      className="badge px-3 py-2 rounded-pill fw-medium font-montserrat d-inline-flex align-items-center justify-content-center gap-1 text-nowrap"
                       style={{
                         backgroundColor: '#eff6ff',
                         color: '#2563eb',
@@ -227,7 +227,7 @@ const Navbar = () => {
 
                   <button
                     onClick={handleLogout}
-                    className="btn btn-outline-danger btn-sm rounded-pill px-3 font-montserrat d-inline-flex align-items-center justify-content-center gap-1"
+                    className="btn btn-outline-danger btn-sm rounded-pill px-3 font-montserrat d-inline-flex align-items-center justify-content-center gap-1 text-nowrap"
                   >
                     <i className="fa-solid fa-right-from-bracket"></i>
                     Logout
@@ -237,7 +237,7 @@ const Navbar = () => {
                 <>
                   <Link
                     to="/login"
-                    className="btn btn-outline-primary btn-sm rounded-pill px-3 fw-medium font-montserrat d-inline-flex align-items-center justify-content-center gap-1"
+                    className="btn btn-outline-primary btn-sm rounded-pill px-3 fw-medium font-montserrat d-inline-flex align-items-center justify-content-center gap-1 text-nowrap"
                   >
                     <i className="fa-solid fa-right-to-bracket"></i>
                     Login
@@ -245,7 +245,7 @@ const Navbar = () => {
 
                   <Link
                     to="/register"
-                    className="btn btn-primary btn-sm rounded-pill px-3 fw-medium font-montserrat d-inline-flex align-items-center justify-content-center gap-1"
+                    className="btn btn-primary btn-sm rounded-pill px-3 fw-medium font-montserrat d-inline-flex align-items-center justify-content-center gap-1 text-nowrap"
                   >
                     <i className="fa-solid fa-user-plus"></i>
                     Sign Up
@@ -376,7 +376,7 @@ const Navbar = () => {
                   <img
                     src={getProfilePicUrl(user.profilePic)}
                     alt={user.name || 'User'}
-                    className="rounded-circle border border-primary"
+                    className="rounded-circle border border-primary flex-shrink-0"
                     style={{
                       width: '42px',
                       height: '42px',
@@ -385,7 +385,7 @@ const Navbar = () => {
                   />
                 ) : (
                   <div
-                    className="rounded-circle bg-light border d-flex align-items-center justify-content-center"
+                    className="rounded-circle bg-light border d-flex align-items-center justify-content-center flex-shrink-0"
                     style={{
                       width: '42px',
                       height: '42px',
